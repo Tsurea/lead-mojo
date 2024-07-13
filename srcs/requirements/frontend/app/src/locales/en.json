@@ -1,0 +1,20 @@
+{
+	"/dashboard": {
+	},
+     "/auth/login": {
+	 },
+     "/auth/signup": {
+	 },
+	 "/search": {
+	 },
+	 "navbar": {
+		 "account": "My account",
+		"search_profile": "Search profile",
+		"blog": "Blog",
+		"affiliate_program": "Affiliate program",
+		"sign_up": "Sign up",
+		"sign_in": "Sign in",
+		"default_language": 0,
+		"logout": "Logout"
+	 }
+}

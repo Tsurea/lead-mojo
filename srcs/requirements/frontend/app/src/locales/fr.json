@@ -1,0 +1,21 @@
+{
+	"/dashboard": {
+		"title": "Dashboard"
+	},
+     "/auth/login": {
+	 },
+     "/auth/signup": {
+	 },
+	 "/search": {
+	 },
+	 "navbar": {
+		 "account": "Mon compte",
+		"search_profile": "Recherche de profil",
+		"blog": "Blog",
+		"affiliate_program": "Programme d'affiliation",
+		"sign_up": "Créez un compte",
+		"sign_in": "Se connecter",
+		"default_language": 1,
+		"logout": "Se déconnecter"
+	 },
+}
