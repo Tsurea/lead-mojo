@@ -1,0 +1,59 @@
+services:
+  cache:
+    container_name: cache
+    restart: unless-stopped
+    image: redis:7.2.5-alpine
+    networks:
+      - app-network
+
+  backend:
+    container_name: backend
+    restart: unless-stopped
+    depends_on:
+      - cache
+    env_file: .env/backend.env
+    build:
+      context: ./requirements/backend
+      dockerfile: Dockerfile.dev
+    image: backend
+    volumes:
+      - ./requirements/backend/src:/go-app/src
+    networks:
+      - app-network
+
+  frontend:
+    container_name: frontend
+    build:
+      context: ./requirements/frontend
+      dockerfile: Dockerfile.dev
+    restart: unless-stopped
+    env_file:
+      - .env/frontend.env
+    volumes:
+      - ./requirements/frontend/app:/app
+      - /app/node_modules
+    image: frontend
+    networks:
+      - app-network
+
+  nginx:
+    container_name: nginx
+    depends_on:
+      - frontend
+      - backend
+      - cache
+    build:
+      context: ./requirements/nginx
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    image: nginx
+    ports:
+      - "8080:80"
+      - "8000:443"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+    name: app-network
