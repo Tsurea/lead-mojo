@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps } : AppProps) {
 	return (
 		<>
 			<Head>
-				<title>ProfileFinder</title>
+				<title>MojoLead</title>
 				<link rel="icon" type="image/x-icon" href="/icone.ico" />
 			</Head>
 			<div>

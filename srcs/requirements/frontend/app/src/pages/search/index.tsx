@@ -1,4 +1,4 @@
-import Form from "@components/form/form";
+import Search from "@components/search/search";
 
 import fs from "fs";
 import path from "path";
@@ -34,6 +34,7 @@ function SearchPage({ page, navbar }: SearchType) {
 		<>
 			<NoSSR page={navbar}/>
 			<div className="bg-[#F3F7FB] w-full min-h-[calc(100vh-78px)] flex items-center justify-center">
+				<Search page={page} />
 			</div>
 		</>
 	)

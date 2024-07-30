@@ -37,8 +37,6 @@ type HomePageType = {
 }
 
 function HomePage({ page, search, navbar, footer }: HomeType) {
-	const router = useRouter();
-	router.push('/dashboard');
 	return null;
 }
 

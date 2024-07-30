@@ -1,4 +1,5 @@
 {
+	"/": {},
 	"/dashboard": {
 		"title": "Dashboard"
 	},
@@ -7,6 +8,9 @@
      "/auth/signup": {
 	 },
 	 "/search": {
+		"location": "Lieu",
+		"category": "Categorie",
+		"search": "recherche"
 	 },
 	 "navbar": {
 		 "account": "Mon compte",
@@ -18,4 +22,5 @@
 		"default_language": 1,
 		"logout": "Se déconnecter"
 	 },
+	 "footer": {}
 }
