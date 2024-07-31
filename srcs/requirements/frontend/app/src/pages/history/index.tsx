@@ -1,5 +1,3 @@
-import Search from "@components/search/search";
-
 import fs from "fs";
 import path from "path";
 
@@ -25,12 +23,12 @@ export async function getStaticProps({ locale } : PropsType) {
   };
 }
 
-type SearchType = {
+type HistoryType = {
 	page: any;
 	navbar: any;
 }
 
-function SearchPage({ page, navbar }: SearchType) {
+function HistoryPage({ page, navbar }: HistoryType) {
     return (
 		<>
 			<Head>
@@ -38,10 +36,9 @@ function SearchPage({ page, navbar }: SearchType) {
 			</Head>
 			<NoSSR page={navbar}/>
 			<div className="bg-[#F3F7FB] w-full min-h-[calc(100vh-78px)] flex items-center justify-center">
-				<Search page={page} />
 			</div>
 		</>
 	)
 }
 
-export default SearchPage;
+export default HistoryPage;

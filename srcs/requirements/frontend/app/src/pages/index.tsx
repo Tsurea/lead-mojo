@@ -9,7 +9,6 @@ import path from "path";
 import dynamic from 'next/dynamic';
 
 const NoSSR = dynamic(() => import('@components/navbar'), { ssr: false });
-import Footer from '@components/footer';
 
 type PropsType = {
 	locale: string;
@@ -25,7 +24,6 @@ export async function getStaticProps({ locale }: PropsType) {
 			page: data["/"],
 			search: data['/search'],
 			navbar: data["navbar"],
-			footer: data["footer"]
 		},
 	};
 }
@@ -33,10 +31,9 @@ export async function getStaticProps({ locale }: PropsType) {
 type HomePageType = {
 	page: any;
 	navbar: any;
-	footer: any;
 }
 
-function HomePage({ page, search, navbar, footer }: HomeType) {
+function HomePage({ page, search, navbar }: HomeType) {
 	return null;
 }
 

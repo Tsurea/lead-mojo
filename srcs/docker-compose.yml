@@ -6,12 +6,26 @@ services:
     networks:
       - app-network
 
+  database:
+    container_name: database
+    restart: unless-stopped
+    image: postgres:16.3
+    volumes:
+      - type: volume
+        source: database
+        target: /var/lib/postgresql/data
+    env_file:
+      - env/database.env
+    networks:
+      - app-network
+
   backend:
     container_name: backend
     restart: unless-stopped
     depends_on:
       - cache
-    env_file: .env/backend.env
+    env_file:
+      - env/backend.env
     build:
       context: ./requirements/backend
       dockerfile: Dockerfile.dev
@@ -28,7 +42,7 @@ services:
       dockerfile: Dockerfile.dev
     restart: unless-stopped
     env_file:
-      - .env/frontend.env
+      - env/frontend.env
     volumes:
       - ./requirements/frontend/app:/app
       - /app/node_modules
@@ -52,6 +66,10 @@ services:
       - "8000:443"
     networks:
       - app-network
+
+volumes:
+  database:
+    driver: local
 
 networks:
   app-network:

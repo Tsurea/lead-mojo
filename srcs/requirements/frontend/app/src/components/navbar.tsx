@@ -5,17 +5,19 @@ import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import LanguageListBox from './languageListBox';
 
-import SubNavbar from '@components/subnavbar';
 
 type NavBarType = {
 	page: any
 }
 
 export default function Navbar({ page }: NavBarType) {
-	const [navigation, setNavigation] = useState<string[]>([
-	])
+	//const [navigation, setNavigation] = useState<string[]>(page["navigation"])
+	const navigation : string[] = page["navigation"]
 
 	const [path, setPath] = useState<string[]>([
+		"/dashboard",
+		"/search",
+		"/history"
 	])
 
 	const router = useRouter();
@@ -66,7 +68,7 @@ export default function Navbar({ page }: NavBarType) {
 					<Disclosure.Panel className="flex flex-wrap w-full my-5 xl:hidden">
 						{navigation.map((item, index) => (
 						<Link href={path[index]} key={index} className="w-full px-4 py-2 -ml-4 text-gray-800 rounded-md hover:text-[#408ACE] focus:text-[#408ACE] focus:outline-none">
-							{page[item]}
+							{item}
 						</Link>
 						))}
 						{Cookies.get("access_token") ?
@@ -91,14 +93,13 @@ export default function Navbar({ page }: NavBarType) {
 			)}
 			</Disclosure>
 
-			<SubNavbar />
 			{/* menu  */}
 			<div className="hidden text-center xl:flex xl:items-center">
 				<ul className="items-center justify-end flex-1 pt-6 list-none xl:pt-0 xl:flex">
 					{navigation.map((menu, index) => (
 					<li className="mr-3 nav__item" key={index}>
 						<Link href={path[index]} className="inline-block px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md hover:text-[#408ACE] focus:text-[#408ACE] focus:outline-none">
-							{page[menu]}
+							{menu}
 						</Link>
 					</li>
 					))}

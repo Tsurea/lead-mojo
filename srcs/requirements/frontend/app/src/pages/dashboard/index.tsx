@@ -1,14 +1,13 @@
-import Link from "next/link";
-import Form from "@components/form/form";
-import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
-
-import { useRouter } from 'next/router';
 import fs from "fs";
 import path from "path";
 
 import dynamic from 'next/dynamic';
 
+import Head from 'next/head';
 const NoSSR = dynamic(() => import('@components/navbar'), { ssr: false });
+
+// Components
+import Search from '@components/dashboard/search';
 
 type PropsType = {
 	locale: string;
@@ -35,9 +34,19 @@ type DashboardPageType = {
 function DashboardPage({ page, navbar }: DashboardPageType) {
 	return (
 		<>
+			<Head>
+				<title>{page["title"]}</title>
+			</Head>
 			<NoSSR page={navbar} />
-			<div className="bg-[#F3F7FB] w-full min-h-[calc(100vh-78px)] flex items-center justify-center">
-				Dashboard
+			<div className="w-full bg-[#F3F7FB] min-h-[calc(100vh-66px)] xl:min-h-[calc(100vh-78px)]">
+				<div
+					className="container relative flex flex-col items-center justify-between p-4 mx-auto xl:justify-between xl:px-0 space-y-2"
+				>
+					<p className="w-full font-medium">
+						{page["title"]}
+					</p>
+					<Search page={page["search"]} />
+				</div>
 			</div>
 		</>
 	)

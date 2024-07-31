@@ -1,25 +1,35 @@
 {
 	"/": {},
 	"/dashboard": {
+		"title": "Dashboard",
+		"search": {
+			"total": "Total Searches",
+			"left": "Searches Left"
+		}
 	},
-     "/auth/login": {
+     "/authentification/login": {
 	 },
-     "/auth/signup": {
+     "/authentification/signup": {
 	 },
 	 "/search": {
+		"title": "Search",
 		"location": "Location",
 		"category": "Category",
-		"search": "search"
+		"search": "search",
+		"map": {
+			"title": "Map",
+			"placeholder": "placeholder"
+		}
 	 },
 	 "navbar": {
-		 "account": "My account",
+		"account": "My account",
 		"search_profile": "Search profile",
 		"blog": "Blog",
 		"affiliate_program": "Affiliate program",
 		"sign_up": "Sign up",
 		"sign_in": "Sign in",
 		"default_language": 0,
-		"logout": "Logout"
-	 },
-	 "footer": {}
+		"logout": "Logout",
+		"navigation": ["Dashboard", "Search", "History"]
+	 }
 }

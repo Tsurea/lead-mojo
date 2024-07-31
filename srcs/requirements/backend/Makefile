@@ -1,30 +1,32 @@
-NAME			= backend
-RUNNING			= running-backend
+NAME				= backend
+RUNNING				= running-backend
 
-SRCS_DIR		= srcs
-OUTPUT_DIR		= output
+SRCS_DIR			= srcs
+OUTPUT_DIR			= output
+DOCKER_DIR			= docker
 
-SRCS			= $(wildcard ${SRCS_DIR}/*.go)
+DOCKERFILE			= Dockerfile
+DOCKERFILE_DEV		= Dockerfile.dev
+DOCKERFILE_BUILD	= Dockerfile.build
 
-GO				= go
-RM				= rm -rf
-RUN				= run
-BUILD			= build -o
-
-DOCKERFILE		= Dockerfile
-
-ENVFILE			= .env
+ENVFILE				= .env
 
 # Docker ID
 CONTAINER		= $(shell docker ps --quiet)
 IMAGE			= $(shell docker images --quiet ${NAME})
 
 all:
-	docker build -t ${NAME} -f ${DOCKERFILE} .
-	docker run --env-file ${ENVFILE} --rm -p 5000:5000 --name ${RUNNING} ${NAME}
+	docker build -t ${NAME} -f ${DOCKER_DIR}/${DOCKERFILE} .
+	docker run --env-file ${ENVFILE}\
+		--rm -p 5000:5000\
+		--name ${RUNNING} ${NAME}
 
-build:
-	go build -o
+dev:
+	docker build -t ${NAME} -f ${DOCKER_DIR}/${DOCKERFILE_DEV} .
+	docker run --env-file ${ENVFILE}\
+		--rm -p 5000:5000\
+		-v ${SRCS_DIR}:/app\
+		--name ${RUNNING} ${NAME}
 
 clean:
 ifneq ($(strip ${CONTAINER}),)
@@ -40,4 +42,4 @@ re:
 	make fclean
 	make all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re dev

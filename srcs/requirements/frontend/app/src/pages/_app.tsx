@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps } : AppProps) {
 	return (
 		<>
 			<Head>
-				<title>MojoLead</title>
+				<title>Lead Mojo</title>
 				<link rel="icon" type="image/x-icon" href="/icone.ico" />
 			</Head>
 			<div>
