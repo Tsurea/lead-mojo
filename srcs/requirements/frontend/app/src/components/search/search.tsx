@@ -6,8 +6,8 @@ export default function Search({ page }: any ) {
 	const [location, setLocation] = useState<string>("");
 	const [radius, setRadius] = useState<number>(40);
 
-	const [latitude, setLatitude] = useState<number>(0);
-	const [longitude, setLongitude] = useState<number>(0);
+	const [latitude, setLatitude] = useState<number|null>(null);
+	const [longitude, setLongitude] = useState<number|null>(null);
 
 
 	const handleEvent = (event) => {
@@ -16,7 +16,8 @@ export default function Search({ page }: any ) {
 	};
 
 	return (
-		<form onSubmit={handleEvent} className="flex flex-row space-x-1">
+		<form onSubmit={handleEvent} className="flex flex-col w-full">
+			<div>
 			<div>
 				<p>{page["category"]}</p>
 				<input 
@@ -51,6 +52,7 @@ export default function Search({ page }: any ) {
 			<button className="font-outfit font-bold text-white bg-blue-700 py-2 px-8 rounded-md hover:bg-opacity-80 duration-300 transition">
 				{page["search"]}
 			</button>
+			</div>
 			<MapForm 
 				latitude={latitude}
 				setLatitude={setLatitude}

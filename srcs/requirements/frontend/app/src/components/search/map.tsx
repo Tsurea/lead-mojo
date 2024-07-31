@@ -1,11 +1,9 @@
 import MapGl, { NavigationControl, GeolocateControl, Marker } from "react-map-gl";
-import Image from 'next/image';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { AddressAutofill } from '@mapbox/search-js-react'
 
 import mapboxToken from '@utils/mapboxToken';
 
-import type { MapRef } from 'react-map-gl';
 import { Label, Input, Field } from '@headlessui/react';
 
 type MapType = {
@@ -70,14 +68,12 @@ export function Mapper({
 
 function MapForm({ latitude, longitude, setLatitude, setLongitude, page }: MapType) {
 	const [address, setAddress] = useState<string>("");
-	const mapRef = useRef(null);
 	const [change, setChange] = useState<number>(0);
+	const mapRef = useRef(null);
 
 	return (
-		<Field>
-			<Label className="text-lg text-center mb-2">
-				{page['map']['title']}
-			</Label>
+		<Field className="w-full">
+		{/*
 			<AddressAutofill
 				accessToken={mapboxToken}
 				browserAutofillEnabled={true}
@@ -95,7 +91,8 @@ function MapForm({ latitude, longitude, setLatitude, setLongitude, page }: MapTy
 						})
 					}}
 			>
-				<Input
+			*/}
+				<input
 						name="address"
 						type="text"
 						autoComplete="address-line1"
@@ -105,15 +102,18 @@ function MapForm({ latitude, longitude, setLatitude, setLongitude, page }: MapTy
 						maxLength={2000}
 						placeholder={page['map']['placeholder']}
 				/>
+				{/*
 			</AddressAutofill>
+			*/}
 			<Mapper
 				latitude={latitude}
 				longitude={longitude}
 				setLatitude={setLatitude}
 				setLongitude={setLongitude}
 				mapRef={mapRef}
-			/>
+				/>
 		</Field>
 	)
+	return null
 }
 export default MapForm;

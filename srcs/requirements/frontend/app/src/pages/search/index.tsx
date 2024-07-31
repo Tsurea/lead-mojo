@@ -37,7 +37,7 @@ function SearchPage({ page, navbar }: SearchType) {
 				<title>{page["title"]}</title>
 			</Head>
 			<NoSSR page={navbar}/>
-			<div className="bg-[#F3F7FB] w-full min-h-[calc(100vh-78px)] flex items-center justify-center">
+			<div className="bg-[#F3F7FB] w-full min-h-[calc(100vh-66px)] xl:min-h-[calc(100vh-78px)] flex items-center justify-center">
 				<Search page={page} />
 			</div>
 		</>
