@@ -1,5 +1,5 @@
-import MapGl, { NavigationControl, GeolocateControl, Marker } from "react-map-gl";
-import { useState, useRef } from 'react';
+import MapGl, { Source, Layer, NavigationControl, GeolocateControl, Marker } from "react-map-gl";
+import { useState, useRef, useEffect } from 'react';
 import { AddressAutofill } from '@mapbox/search-js-react'
 
 import mapboxToken from '@utils/mapboxToken';
@@ -22,10 +22,34 @@ type MapperType = {
 	mapRef: any;
 }
 
-export function Mapper({
+const createCircle = (
+	latitude: number,
+	longitude: number,
+	km: number
+	) => {
+	const points = 128;
+
+	km = km/2;
+    var ret = [];
+    var distanceX = km/(111.320*Math.cos(latitude*Math.PI/180));
+    var distanceY = km/110.574;
+
+    var theta, x, y;
+    for(var i=0; i<points; i++) {
+        theta = (i/points)*(2*Math.PI);
+        x = distanceX*Math.cos(theta);
+        y = distanceY*Math.sin(theta);
+
+        ret.push([longitude+x, latitude+y]);
+    }
+    ret.push(ret[0]);
+	return ret
+}
+
+export default function Mapper({
 		latitude, longitude,
 		setLatitude, setLongitude,
-		mapRef
+		radius, mapRef
 	} : MapperType) {
 
 	const viewPort = {
@@ -33,9 +57,49 @@ export function Mapper({
 		longitude: 2.337599080135306,
 		zoom: 1
 	}
+
+	var geojson: FeatureCollection = {
+		type: 'FeatureCollection',
+		features: [
+			{
+				type: 'Feature',
+				properties: {},
+				geometry: {
+					type: 'Polygon',
+					coordinates: [createCircle(latitude, longitude, radius)],
+				},
+			} 
+		]
+	}
+
+	useEffect(() => {
+		geojson.features[0].geometry.coordinates = createCircle(latitude, longitude, radius);
+	}, [latitude, longitude])
+
+	var layerStyle: any = {
+	  id: 'maine',
+	  type: 'fill',
+	  source: 'maine',
+	  layout: {},
+	  paint: {
+		'fill-opacity': .5,
+		'fill-color': '#007cbf'
+	  }
+	}
+
+	var layerLine: any = {
+	  id: 'outline',
+	  type: 'line',
+	  source: 'maine',
+	  layout: {},
+	  paint: {
+		'line-width': 3,
+		'line-color': '#000'
+	  }
+	}
 	
     return (
-		<div className="h-72">
+		<div className="h-96">
 			<MapGl
 				ref={mapRef}
 				mapboxAccessToken={mapboxToken}
@@ -52,68 +116,29 @@ export function Mapper({
 				<NavigationControl position="top-left" />
 				{
 					(latitude == null && longitude == null) ? <></> : 
-					<Marker latitude={latitude} longitude={longitude} anchor="bottom">
-						<img
-							src="/assets/marker-icon.png"
-							alt="marker"
-							width={32}
-							height={32}
-							/>
-					</Marker>
+					<>
+						<Source
+							type="geojson"
+							data={geojson}
+						>
+							<Layer {...layerStyle} />
+							<Layer {...layerLine} />
+						</Source>
+						<Marker
+							latitude={latitude}
+							longitude={longitude}
+							anchor="bottom"
+						>
+							<img
+								src="/assets/marker-icon.png"
+								alt="marker"
+								width={32}
+								height={32}
+								/>
+						</Marker>
+					</>
 				}
 			</MapGl>
 		</div>
     );
 }
-
-function MapForm({ latitude, longitude, setLatitude, setLongitude, page }: MapType) {
-	const [address, setAddress] = useState<string>("");
-	const [change, setChange] = useState<number>(0);
-	const mapRef = useRef(null);
-
-	return (
-		<Field className="w-full">
-		{/*
-			<AddressAutofill
-				accessToken={mapboxToken}
-				browserAutofillEnabled={true}
-				onRetrieve={
-					(res) => {
-						setAddress(res.features[0].properties.place_name);
-						setLongitude(res.features[0].geometry.coordinates[0]);
-						setLatitude(res.features[0].geometry.coordinates[1]);
-						mapRef.current?.flyTo({
-							center: [
-									res.features[0].geometry.coordinates[0],
-									res.features[0].geometry.coordinates[1]
-									],
-							zoom: 16
-						})
-					}}
-			>
-			*/}
-				<input
-						name="address"
-						type="text"
-						autoComplete="address-line1"
-						className="w-full rounded-md mb-2 py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none border"
-						value={address}
-						onChange={(e) => setAddress(e.target.value)}
-						maxLength={2000}
-						placeholder={page['map']['placeholder']}
-				/>
-				{/*
-			</AddressAutofill>
-			*/}
-			<Mapper
-				latitude={latitude}
-				longitude={longitude}
-				setLatitude={setLatitude}
-				setLongitude={setLongitude}
-				mapRef={mapRef}
-				/>
-		</Field>
-	)
-	return null
-}
-export default MapForm;

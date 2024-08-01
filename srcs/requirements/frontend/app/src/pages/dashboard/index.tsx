@@ -42,7 +42,7 @@ function DashboardPage({ page, navbar }: DashboardPageType) {
 				<div
 					className="container relative flex flex-col items-center justify-between p-4 mx-auto xl:justify-between xl:px-0 space-y-2"
 				>
-					<p className="w-full font-medium">
+					<p className="w-full font-bold">
 						{page["title"]}
 					</p>
 					<Search page={page["search"]} />

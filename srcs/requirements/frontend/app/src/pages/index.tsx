@@ -1,14 +1,5 @@
-import Link from "next/link";
-import Form from "@components/form/form";
-import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
-
-import { useRouter } from 'next/router';
 import fs from "fs";
 import path from "path";
-
-import dynamic from 'next/dynamic';
-
-const NoSSR = dynamic(() => import('@components/navbar'), { ssr: false });
 
 type PropsType = {
 	locale: string;
@@ -21,20 +12,22 @@ export async function getStaticProps({ locale }: PropsType) {
 
 	return {
 		props: {
-			page: data["/"],
-			search: data['/search'],
-			navbar: data["navbar"],
-		},
+			page: data["/"]
+		}
 	};
 }
 
 type HomePageType = {
 	page: any;
-	navbar: any;
 }
 
-function HomePage({ page, search, navbar }: HomeType) {
-	return null;
+function HomePage({ page }: HomeType) {
+	return (
+		<>
+			Homepage
+		</>
+
+	);
 }
 
 export default HomePage;

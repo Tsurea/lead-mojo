@@ -14,12 +14,16 @@
 	 "/search": {
 		"title": "Recherche",
 		"location": "Lieu",
-		"category": "Categorie",
+		"category": {
+			"title": "Catégorie",
+			"placeholder": "Entrez ce que vous recherchez..."
+		},
 		"search": "recherche",
 		"map": {
 			"title": "Map",
-			"placeholder": "placeholder"
-		}
+			"placeholder": "Entrez une addresse..."
+		},
+		"km": "km radius"
 	 },
 	 "navbar": {
 		"account": "Mon compte",

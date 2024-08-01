@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-    "net/http"
+	"net/http"
 )
 
 func hello(w http.ResponseWriter, req *http.Request) {
@@ -11,6 +11,6 @@ func hello(w http.ResponseWriter, req *http.Request) {
 
 func main() {
 	router := http.NewServeMux()
-	http.HandleFunc("/hello", hello)
+	router.HandleFunc("/hello", hello)
 	http.ListenAndServe(":5000", nil)
 }
