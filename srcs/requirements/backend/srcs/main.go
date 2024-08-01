@@ -1,16 +1,28 @@
 package main
 
 import (
+	"log"
 	"fmt"
 	"net/http"
 )
 
 func hello(w http.ResponseWriter, req *http.Request) {
-	fmt.Fprintf(w, "Hello world!!\n")
+	fmt.Fprintf(w, "Hello\n")
 }
 
 func main() {
-	http.HandleFunc("/hello", hello);
-	fmt.Printf("Listening to port 5000...\n");
-	http.ListenAndServe(":5000", nil);
+	router := http.NewServeMux()
+
+	router.HandleFunc("/hello", hello);
+
+	api := http.NewServeMux()
+	api.Handle("/api/v1/", http.StripPrefix("/api/v1/", router))
+
+	server := http.Server{
+		Addr: ":5000",
+		Handler: router,
+	}
+
+	log.Println("Server listening on port 5000...");
+	server.ListenAndServe();
 }
