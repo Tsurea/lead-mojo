@@ -1,8 +1,7 @@
 NAME				= backend
 RUNNING				= running-backend
 
-SRCS_DIR			= srcs
-OUTPUT_DIR			= output
+#SRCS_DIR			= ./srcs
 DOCKER_DIR			= docker
 
 DOCKERFILE			= Dockerfile
@@ -25,7 +24,8 @@ dev:
 	docker build -t ${NAME} -f ${DOCKER_DIR}/${DOCKERFILE_DEV} .
 	docker run --env-file ${ENVFILE}\
 		--rm -p 5000:5000\
-		-v ${SRCS_DIR}:/app/srcs\
+		-v ./srcs:/app/srcs\
+		-v /app/tmp\
 		--name ${RUNNING} ${NAME}
 
 clean:
