@@ -1,13 +1,13 @@
 # Environnement variable
 
 To be running the docker-compose.yml you need this 3 environnement variables
+Every env file must be in the ./env directory
 
 ## database.env
 
 |Name|Description|
 |:---|:----------|
 |`POSTGRES_PASSWORD`|Password of the postgres database|
-|:------------------|:-----------------------|
 
 ## frontend.env
 
@@ -22,8 +22,8 @@ To be running the docker-compose.yml you need this 3 environnement variables
 |Name|Description|
 |:---|:----------|
 |`JWT_SECRET`|everything is in the name|
-|`DATABASE_URL`||
-|`DIRECT_URL`||
+|`DATABASE_URL`|url for communication with the postgresql|
+|`DIRECT_URL`|url for communication with the postgresql|
 |`STRIPE_SECRET_KEY`|stripe key for creating request|
 |`STRIPE_PUBLISHABLE_KEY`|key only used in the frontend app|
 |`SERVER_HOSTNAME`|only url accept for the request|
