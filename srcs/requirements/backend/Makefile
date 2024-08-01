@@ -25,7 +25,7 @@ dev:
 	docker build -t ${NAME} -f ${DOCKER_DIR}/${DOCKERFILE_DEV} .
 	docker run --env-file ${ENVFILE}\
 		--rm -p 5000:5000\
-		-v ${SRCS_DIR}:/app\
+		-v ${SRCS_DIR}:/app/srcs\
 		--name ${RUNNING} ${NAME}
 
 clean:

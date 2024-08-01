@@ -1,0 +1,11 @@
+# Config file for Air
+[build]
+	# Command to build the app
+	cmd = "go build -o main ."
+	bin = "main"
+	dir = "./app/srcs"
+	include_ext = ["go"]
+	exclude_dir = ["vendor"]
+	run_after_build = "chmod +x main"
+[log]
+	level = "debug"

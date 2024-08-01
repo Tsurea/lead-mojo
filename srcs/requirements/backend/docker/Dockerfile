@@ -1,4 +1,4 @@
-FROM golang:1.21.5-buster as builder
+FROM golang:1.22.5 as builder
  
 WORKDIR /workspace
  

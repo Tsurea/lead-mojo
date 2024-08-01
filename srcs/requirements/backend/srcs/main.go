@@ -10,7 +10,7 @@ func hello(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
-	router := http.NewServeMux()
-	router.HandleFunc("/hello", hello)
-	http.ListenAndServe(":5000", nil)
+	http.HandleFunc("/hello", hello);
+	fmt.Printf("Listening to port 5000...\n");
+	http.ListenAndServe(":5000", nil);
 }
