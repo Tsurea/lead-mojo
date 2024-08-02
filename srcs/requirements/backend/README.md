@@ -6,4 +6,8 @@ Server backend code in golang 1.22. This server has for role to modify the Postg
 
 Path routes and all the stuff to do
 
-
+#### Auth
+|Name|Type|Path|Paramaters|Description|
+|:---|:---|:---|:---------|:----------|
+|Generate New Token|`POST`|/auth/users/|**REQUIRED**You need the email and password|Connect the user to his account.|
+|Create User|`POST`|/auth/users/|**REQUIRED**You need the email and password|Connect the user to his account.|
