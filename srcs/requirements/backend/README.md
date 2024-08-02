@@ -9,5 +9,5 @@ Path routes and all the stuff to do
 #### Auth
 |Name|Type|Path|Paramaters|Description|
 |:---|:---|:---|:---------|:----------|
-|Generate New Token|`POST`|/auth/users/|**REQUIRED**You need the email and password|Connect the user to his account.|
-|Create User|`POST`|/auth/users/|**REQUIRED**You need the email and password|Connect the user to his account.|
+|Generate New Token|`POST`|/auth/login|**REQUIRED**You need the email and password|Connect the user to his account.|
+|Create User|`POST`|/auth/signup|**REQUIRED**You need the email and password|Connect the user to his account.|
